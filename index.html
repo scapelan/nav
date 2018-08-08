@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>导航</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header></header>
+    <main>
+        <div class="wrapper" id="main"></div>
+    </main>
+    <footer></footer>
+    <script>
+        var keys = [
+            ['q','w','e','r','t','y','u','i','o','p'],
+            ['a','s','d','f','g','h','j','k','l'],
+            ['z','x','c','v','b','n','m']
+        ]
+        
+        var hash = {
+            'q': 'qq.com',
+            'w': 'weibo.com'
+        }
+
+        var hashInLocalStorage = JSON.parse(localStorage.getItem('uuu') || 'null')
+        
+        if(hashInLocalStorage){
+            hash = hashInLocalStorage
+        }
+
+        var index = 0
+        while(index < keys.length){
+            var rowBox = document.createElement('div')
+            var main = document.getElementById('main')
+            main.appendChild(rowBox)
+            var row = keys[index]
+            var index2 = 0
+            while(index2 < row['length']){
+                var kbd = document.createElement('kbd')
+                kbd.textContent = row[index2]
+                var button = document.createElement('button')
+                button.textContent = 'Edit'
+                button.id = row[index2]
+                button.onclick = function(asbndk){
+                    var key = asbndk['target']['id']
+                    var url = prompt('给我一个网址')
+                    hash[key] = url
+                    localStorage.setItem('uuu', JSON.stringify(hash))
+                }
+                rowBox.appendChild(kbd)
+                kbd.appendChild(button)
+                index2 = index2 + 1
+            }
+            index = index + 1
+        }
+        document.onkeypress = function(svagdha){
+            key = svagdha['key']
+            website = hash[key]
+            // console.log(website)
+            // location.href = 'http://' + website
+            window.open('http://' + website, '_blank')
+        }
+    </script>
+</body>
+</html>
